@@ -436,9 +436,10 @@ UniValue getnetworkinfo(const JSONRPCRequest& request)
 
     LOCK(cs_main);
     UniValue obj(UniValue::VOBJ);
+    std::int32_t nMaxBlockSize = Policy::blockSizeAcceptLimit();
     obj.push_back(Pair("version",       CLIENT_VERSION));
     obj.push_back(Pair("subversion",
-        FormatSubVersion(CLIENT_NAME, CLIENT_VERSION, vUAComments, 0)));
+        FormatSubVersion(CLIENT_NAME, CLIENT_VERSION, vUAComments, nMaxBlockSize)));
     obj.push_back(Pair("protocolversion",PROTOCOL_VERSION));
     if(g_connman)
         obj.push_back(Pair("localservices", strprintf("%016x", g_connman->GetLocalServices())));
